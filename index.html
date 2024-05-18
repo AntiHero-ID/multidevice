@@ -75,9 +75,7 @@
 <body>
     <div class="container">
         <h1>MULTIDEVICE</h1>
-        <br>
         <p>© 2024 Dibuat Oleh Anti Hero • ⁴̅⁰͍⁴̵〆</p>
-        <br>
         <div class="info">
             <table class="hash-table">
                 <tr>
@@ -150,7 +148,7 @@
                 <!-- Informasi tambahan -->
             </table>
         </div>
-    </div>   
+    </div>
     <script>
         // Mendapatkan informasi perangkat
         var deviceInfo = navigator.userAgent;
@@ -199,6 +197,12 @@
 
         // Mendapatkan status cookie yang diaktifkan
         document.getElementById('cookiesEnabled').textContent = navigator.cookieEnabled ? 'Enabled' : 'Disabled';
+
+        // Mendapatkan daftar plugin yang diaktifkan
+        document.getElementById('plugins').textContent = navigator.plugins.length;
+
+        // Mendapatkan daftar MIME types yang didukung
+        document.getElementById('mimeTypes').textContent = navigator.mimeTypes.length;
 
         // Mendapatkan tipe koneksi jaringan
         document.getElementById('connection').textContent = navigator.connection ? navigator.connection.type : 'Unknown';
@@ -270,5 +274,4 @@
         document.getElementById('startTime').textContent = startTime.toLocaleString();
     </script>
 </body>
-    </html>
-    
+</html>
