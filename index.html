@@ -35,16 +35,6 @@
             text-align: left;
         }
 
-        .info p {
-            margin-bottom: 10px;
-        }
-
-        .hash-value {
-            font-size: 20px;
-            font-weight: bold;
-            color: #007bff;
-        }
-
         .hash-table {
             margin-top: 20px;
             width: 100%;
@@ -61,15 +51,6 @@
         .hash-table th {
             background-color: #f0f0f0;
         }
-
-        a {
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
     </style>
 </head>
 <body>
@@ -82,100 +63,101 @@
                     <th colspan="2">Information</th>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td>Device : <span id="deviceInfo"></span></td>
+                    <td>Device : </td>
+                    <td><span id="deviceInfo"></span></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td>Platform : <span id="platform"></span></td>
+                    <td>Platform : </td>
+                    <td><span id="platform"></span></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td>CPU/GPU : <span id="cpuGpuInfo"></span></td>
+                    <td>CPU/GPU : </td>
+                    <td><span id="cpuGpuInfo"></span></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td>Memory Capacity : <span id="memoryCapacity"></span></td>
+                    <td>Memory Capacity : </td>
+                    <td><span id="memoryCapacity"></span></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td>Storage Capacity : <span id="storageCapacity"></span></td>
+                    <td>Storage Capacity : </td>
+                    <td><span id="storageCapacity"></span></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td>OS Version : <span id="osVersion"></span></td>
+                    <td>OS Version : </td>
+                    <td><span id="osVersion"></span></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td>Software Version : <span id="softwareVersion"></span></td>
+                    <td>Software Version : </td>
+                    <td><span id="softwareVersion"></span></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td>Battery : <span id="battery"></span></td>
+                    <td>Battery : </td>
+                    <td><span id="battery"></span></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td>IP Address : <span id="ipAddress"></span></td>
-                </tr> 
-                <tr>
-                    <td></td>
-                    <td>Geolocation : <span id="geolocation"></span></td>
-                </tr>                                               
-                <tr>
-                    <td></td>
-                    <td>Language : <span id="language"></span></td>
+                    <td>IP Address : </td>
+                    <td><span id="ipAddress"></span></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td>Cookies : <span id="cookiesEnabled"></span></td>
+                    <td>Geolocation : </td>
+                    <td><span id="geolocation"></span></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td>Connection : <span id="connection"></span></td>
+                    <td>Language : </td>
+                    <td><span id="language"></span></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td>Status : <span id="onlineStatus"></span></td>
+                    <td>Cookies : </td>
+                    <td><span id="cookiesEnabled"></span></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td>DateTime : <span id="currentDateTime"></span></td>
+                    <td>Connection : </td>
+                    <td><span id="connection"></span></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td>Runtime : <span id="miningTime"></span></td>
+                    <td>Status : </td>
+                    <td><span id="onlineStatus"></span></td>
                 </tr>
-                <!-- Informasi tambahan -->
+                <tr>
+                    <td>DateTime : </td>
+                    <td><span id="currentDateTime"></span></td>
+                </tr>
+                <tr>
+                    <td>Runtime : </td>
+                    <td><span id="miningTime"></span></td>
+                </tr>
             </table>
         </div>
     </div>
     <script>
         // Mendapatkan informasi perangkat
-        var deviceInfo = navigator.userAgent;
-        document.getElementById('deviceInfo').textContent = deviceInfo;
+        document.getElementById('deviceInfo').textContent = navigator.userAgent;
+
+        // Mendapatkan informasi platform
+        document.getElementById('platform').textContent = navigator.platform;
 
         // Mendapatkan informasi CPU/GPU
-        var cpuGpuInfo = "CPU ° " + navigator.hardwareConcurrency + " core(s)";
-        document.getElementById('cpuGpuInfo').textContent = cpuGpuInfo;
-
-        // Mendapatkan informasi perangkat
-        var deviceInfo = navigator.userAgent;
-        document.getElementById('deviceInfo').textContent = deviceInfo;
+        document.getElementById('cpuGpuInfo').textContent = navigator.hardwareConcurrency + " core(s)";
 
         // Mendapatkan kapasitas memori
-        var memoryCapacity = navigator.deviceMemory;
-        document.getElementById('memoryCapacity').textContent = memoryCapacity + " GB";
+        if (navigator.deviceMemory) {
+            document.getElementById('memoryCapacity').textContent = navigator.deviceMemory + " GB";
+        } else {
+            document.getElementById('memoryCapacity').textContent = "Not available";
+        }
 
         // Mendapatkan kapasitas penyimpanan
-        var storageInfo = navigator.storage;
-        storageInfo.estimate().then(function(estimate) {
-            var storageCapacity = estimate.quota;
-            document.getElementById('storageCapacity').textContent = (storageCapacity / (1024 * 1024 * 1024)).toFixed(2) + " GB";
-        });
+        if (navigator.storage && navigator.storage.estimate) {
+            navigator.storage.estimate().then(function(estimate) {
+                document.getElementById('storageCapacity').textContent = (estimate.quota / (1024 * 1024 * 1024)).toFixed(2) + " GB";
+            });
+        } else {
+            document.getElementById('storageCapacity').textContent = "Not available";
+        }
 
         // Mendapatkan versi sistem operasi
-        var osVersion = navigator.userAgent.match(/(iPhone|iPad|iPod|Android)[\s\/:]+([\d_]+)/);
-        document.getElementById('osVersion').textContent = osVersion ? osVersion[1] + ' ' + osVersion[2] : 'Unknown';
+        var osVersionMatch = navigator.userAgent.match(/(Windows NT|Mac OS X|Linux|Android|iOS) ([\d._]+)/);
+        document.getElementById('osVersion').textContent = osVersionMatch ? osVersionMatch[1] + ' ' + osVersionMatch[2] : 'Unknown';
 
         // Mendapatkan versi perangkat lunak
         var softwareVersion = "1.0"; // Ganti dengan versi aplikasi Anda
@@ -187,10 +169,27 @@
             .then(data => {
                 document.getElementById('ipAddress').textContent = data.ip;
             })
-            .catch(error => console.error('Error fetching IP address:', error));     
+            .catch(error => console.error('Error fetching IP address:', error));
 
-        // Mendapatkan platform
-        document.getElementById('platform').textContent = navigator.platform;
+        // Mendapatkan status baterai
+        if (navigator.getBattery) {
+            navigator.getBattery().then(function(battery) {
+                document.getElementById('battery').textContent = (battery.level * 100) + '%';
+            });
+        } else {
+            document.getElementById('battery').textContent = 'Not available';
+        }
+
+        // Mendapatkan informasi geolokasi
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+                document.getElementById('geolocation').textContent = 'Latitude: ' + latitude.toFixed(2) + ', Longitude: ' + longitude.toFixed(2);
+            });
+        } else {
+            document.getElementById('geolocation').textContent = 'Not supported';
+        }
 
         // Mendapatkan bahasa yang digunakan oleh pengguna
         document.getElementById('language').textContent = navigator.language;
@@ -198,42 +197,16 @@
         // Mendapatkan status cookie yang diaktifkan
         document.getElementById('cookiesEnabled').textContent = navigator.cookieEnabled ? 'Enabled' : 'Disabled';
 
-        // Mendapatkan daftar plugin yang diaktifkan
-        document.getElementById('plugins').textContent = navigator.plugins.length;
-
-        // Mendapatkan daftar MIME types yang didukung
-        document.getElementById('mimeTypes').textContent = navigator.mimeTypes.length;
-
         // Mendapatkan tipe koneksi jaringan
-        document.getElementById('connection').textContent = navigator.connection ? navigator.connection.type : 'Unknown';
+        if (navigator.connection) {
+            document.getElementById('connection').textContent = navigator.connection.effectiveType;
+        } else {
+            document.getElementById('connection').textContent = 'Not available';
+        }
 
         // Mendapatkan status online/offline
         document.getElementById('onlineStatus').textContent = navigator.onLine ? 'Online' : 'Offline';
 
-        // Mendapatkan user agent
-        document.getElementById('userAgent').textContent = navigator.userAgent;
-
-        // Mendapatkan informasi geolokasi
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                var latitude = position.coords.latitude;
-                var longitude = position.coords.longitude;
-                document.getElementById('geolocation').textContent = 'Latitude: ' + latitude + ', Longitude: ' + longitude;
-            });
-        } else {
-            document.getElementById('geolocation').textContent = 'Geolocation not supported';
-        }
-
-        // Mendapatkan informasi baterai
-        if (navigator.getBattery) {
-            navigator.getBattery().then(function(battery) {
-                var level = battery.level * 100;
-                document.getElementById('battery').textContent = level + '%';
-            });
-        } else {
-            document.getElementById('battery').textContent = 'Battery information not available';
-        }
-        
         // Mendapatkan waktu mulai
         var startTime = new Date();
 
@@ -242,36 +215,22 @@
             var now = new Date();
             var timeString = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0') + ":" + now.getSeconds().toString().padStart(2, '0');
             var dateString = now.toLocaleDateString();
-
-            document.getElementById('currentTime').textContent = timeString;
-            document.getElementById('currentDate').textContent = dateString;
+            document.getElementById('currentDateTime').textContent = dateString + " - " + timeString;
         }
 
-        // Fungsi untuk mengupdate durasi waktu menambang secara real-time
+        // Fungsi untuk mengupdate durasi runtime secara real-time
         function updateMiningTime() {
             var currentTime = new Date();
             var elapsedTime = currentTime - startTime;
             var hours = Math.floor(elapsedTime / (1000 * 60 * 60));
             var minutes = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60));
             var seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000);
-            document.getElementById('miningTime').textContent = hours + " hours " + minutes + " minutes " + seconds + " seconds ";
+            document.getElementById('miningTime').textContent = hours + " hours " + minutes + " minutes " + seconds + " seconds";
         }
 
-        // Fungsi untuk mengupdate waktu dan tanggal secara real-time
-        function updateDateTime() {
-            var now = new Date();
-            var timeString = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0') + ":" + now.getSeconds().toString().padStart(2, '0');
-            var dateString = now.toLocaleDateString();
-            document.getElementById('currentDateTime').textContent = dateString + " - " + timeString;
-        }
-        
-        // Memanggil fungsi updateDateTime setiap detik
+        // Memanggil fungsi updateDateTime dan updateMiningTime setiap detik
         setInterval(updateDateTime, 1000);
-        // Memanggil fungsi updateMiningTime setiap detik
         setInterval(updateMiningTime, 1000);
-
-        // Menampilkan waktu mulai menambang
-        document.getElementById('startTime').textContent = startTime.toLocaleString();
     </script>
 </body>
-</html>
+    </html>
