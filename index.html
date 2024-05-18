@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multidevice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 90%;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333333;
+        }
+
+        .info {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .info p {
+            margin-bottom: 10px;
+        }
+
+        .hash-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .hash-table {
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .hash-table th,
+        .hash-table td {
+            padding: 8px;
+            border-bottom: 1px solid #cccccc;
+            text-align: left;
+        }
+
+        .hash-table th {
+            background-color: #f0f0f0;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>MULTIDEVICE</h1>
+        <p>© 2024 dibuat oleh Anti Hero • ⁴̅⁰͍⁴̵〆</p>
+        <div class="info">
+            <table class="hash-table">
+                <tr>
+                    <th colspan="2">Information</th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Device : <span id="deviceInfo"></span></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>CPU/GPU : <span id="cpuGpuInfo"></span></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Memory Capacity : <span id="memoryCapacity"></span></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Storage Capacity : <span id="storageCapacity"></span></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>OS Version : <span id="osVersion"></span></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Software Version : <span id="softwareVersion"></span></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>IP Address : <span id="ipAddress"></span></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Platform : <span id="platform"></span></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Language : <span id="language"></span></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Cookies Enabled : <span id="cookiesEnabled"></span></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Plugins : <span id="plugins"></span></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Mime Types : <span id="mimeTypes"></span></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Connection : <span id="connection"></span></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Online Status : <span id="onlineStatus"></span></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>User Agent : <span id="userAgent"></span></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Geolocation : <span id="geolocation"></span></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Battery : <span id="battery"></span></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>DateTime : <span id="currentDateTime"></span></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Runtime : <span id="miningTime"></span></td>
+                </tr>
+                <!-- Informasi tambahan -->
+            </table>
+        </div>
+    </div>
+    <script>
+        // Mendapatkan informasi perangkat
+        var deviceInfo = navigator.userAgent;
+        document.getElementById('deviceInfo').textContent = deviceInfo;
+
+        // Mendapatkan informasi CPU/GPU
+        var cpuGpuInfo = "CPU ° " + navigator.hardwareConcurrency + " core(s)";
+        document.getElementById('cpuGpuInfo').textContent = cpuGpuInfo;
+
+        // Mendapatkan informasi perangkat
+        var deviceInfo = navigator.userAgent;
+        document.getElementById('deviceInfo').textContent = deviceInfo;
+
+        // Mendapatkan kapasitas memori
+        var memoryCapacity = navigator.deviceMemory;
+        document.getElementById('memoryCapacity').textContent = memoryCapacity + " GB";
+
+        // Mendapatkan kapasitas penyimpanan
+        var storageInfo = navigator.storage;
+        storageInfo.estimate().then(function(estimate) {
+            var storageCapacity = estimate.quota;
+            document.getElementById('storageCapacity').textContent = (storageCapacity / (1024 * 1024 * 1024)).toFixed(2) + " GB";
+        });
+
+        // Mendapatkan versi sistem operasi
+        var osVersion = navigator.userAgent.match(/(iPhone|iPad|iPod|Android)[\s\/:]+([\d_]+)/);
+        document.getElementById('osVersion').textContent = osVersion ? osVersion[1] + ' ' + osVersion[2] : 'Unknown';
+
+        // Mendapatkan versi perangkat lunak
+        var softwareVersion = "1.0"; // Ganti dengan versi aplikasi Anda
+        document.getElementById('softwareVersion').textContent = softwareVersion;
+
+        // Mendapatkan IP address
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('ipAddress').textContent = data.ip;
+            })
+            .catch(error => console.error('Error fetching IP address:', error));     
+
+        // Mendapatkan platform
+        document.getElementById('platform').textContent = navigator.platform;
+
+        // Mendapatkan bahasa yang digunakan oleh pengguna
+        document.getElementById('language').textContent = navigator.language;
+
+        // Mendapatkan status cookie yang diaktifkan
+        document.getElementById('cookiesEnabled').textContent = navigator.cookieEnabled ? 'Enabled' : 'Disabled';
+
+        // Mendapatkan daftar plugin yang diaktifkan
+        document.getElementById('plugins').textContent = navigator.plugins.length;
+
+        // Mendapatkan daftar MIME types yang didukung
+        document.getElementById('mimeTypes').textContent = navigator.mimeTypes.length;
+
+        // Mendapatkan tipe koneksi jaringan
+        document.getElementById('connection').textContent = navigator.connection ? navigator.connection.type : 'Unknown';
+
+        // Mendapatkan status online/offline
+        document.getElementById('onlineStatus').textContent = navigator.onLine ? 'Online' : 'Offline';
+
+        // Mendapatkan user agent
+        document.getElementById('userAgent').textContent = navigator.userAgent;
+
+        // Mendapatkan informasi geolokasi
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+                document.getElementById('geolocation').textContent = 'Latitude: ' + latitude + ', Longitude: ' + longitude;
+            });
+        } else {
+            document.getElementById('geolocation').textContent = 'Geolocation not supported';
+        }
+
+        // Mendapatkan informasi baterai
+        if (navigator.getBattery) {
+            navigator.getBattery().then(function(battery) {
+                var level = battery.level * 100;
+                document.getElementById('battery').textContent = level + '%';
+            });
+        } else {
+            document.getElementById('battery').textContent = 'Battery information not available';
+        }
+        
+        // Mendapatkan waktu mulai
+        var startTime = new Date();
+
+        // Fungsi untuk mengupdate waktu dan tanggal secara real-time
+        function updateDateTime() {
+            var now = new Date();
+            var timeString = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0') + ":" + now.getSeconds().toString().padStart(2, '0');
+            var dateString = now.toLocaleDateString();
+
+            document.getElementById('currentTime').textContent = timeString;
+            document.getElementById('currentDate').textContent = dateString;
+        }
+
+        // Fungsi untuk mengupdate durasi waktu menambang secara real-time
+        function updateMiningTime() {
+            var currentTime = new Date();
+            var elapsedTime = currentTime - startTime;
+            var hours = Math.floor(elapsedTime / (1000 * 60 * 60));
+            var minutes = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000);
+            document.getElementById('miningTime').textContent = hours + " hours " + minutes + " minutes " + seconds + " seconds ";
+        }
+
+        // Fungsi untuk mengupdate waktu dan tanggal secara real-time
+        function updateDateTime() {
+            var now = new Date();
+            var timeString = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0') + ":" + now.getSeconds().toString().padStart(2, '0');
+            var dateString = now.toLocaleDateString();
+            document.getElementById('currentDateTime').textContent = dateString + " - " + timeString;
+        }
+        
+        // Memanggil fungsi updateDateTime setiap detik
+        setInterval(updateDateTime, 1000);
+        // Memanggil fungsi updateMiningTime setiap detik
+        setInterval(updateMiningTime, 1000);
+
+        // Menampilkan waktu mulai menambang
+        document.getElementById('startTime').textContent = startTime.toLocaleString();
+    </script>
+</body>
+</html>
